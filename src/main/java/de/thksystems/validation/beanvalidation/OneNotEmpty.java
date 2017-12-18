@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://www.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.validation.beanvalidation;
@@ -20,15 +20,17 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = OneNotEmptyValidator.class)
-@Target({ TYPE })
+@Target({TYPE})
 @Retention(RUNTIME)
 public @interface OneNotEmpty {
-	String message() default "At least one field must have a non-empty value.";
+    String message() default "At least one field must have a non-empty value.";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	/** Name of the fields. */
-	String[] fieldnames();
+    /**
+     * Name of the fields.
+     */
+    String[] fieldnames();
 }

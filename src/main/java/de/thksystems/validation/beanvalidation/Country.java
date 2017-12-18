@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://www.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.validation.beanvalidation;
@@ -24,12 +24,12 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = CountryValidator.class)
-@Target({ METHOD, FIELD, PARAMETER })
+@Target({METHOD, FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface Country {
-	String message() default "Invalid country code.";
+    String message() default "Invalid country code.";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

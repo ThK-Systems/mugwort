@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://oss.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.persistence.hibernate.immutable;
@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  * Only useful for entities marked as {@link Immutable}. In other entities it is ignored!!
  * <p>
  * <b>Use it with caution and never use it for business fields, just for technical fields!!!</b>
- * 
+ *
  * @author Thomas Kuhlmann (kuhl025), arvato D1CS, extern <thomas.kuhlmann.extern@bertelsmann.de>
  */
 @Documented
@@ -25,9 +25,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Mutable {
 
-	/**
-	 * The value can be set only once from <code>null</code> to some non-null value.
-	 */
-	boolean finall() default false;
+    /**
+     * The value can be set only once from <code>null</code> to some non-null value.
+     */
+    boolean finall() default false;
 
 }

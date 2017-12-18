@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://www.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.validation.beanvalidation;
@@ -21,27 +21,37 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = OccurenceValidator.class)
-@Target({ METHOD, FIELD })
+@Target({METHOD, FIELD})
 @Retention(RUNTIME)
 public @interface Occurence {
-	String message() default "Only a single occurence is allowed.";
+    String message() default "Only a single occurence is allowed.";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	/** Name of getter method to access the field. */
-	String getterName();
+    /**
+     * Name of getter method to access the field.
+     */
+    String getterName();
 
-	/** Value, that must exists not more than once. */
-	String value();
+    /**
+     * Value, that must exists not more than once.
+     */
+    String value();
 
-	/** Ignore case by comparing values as string. */
-	boolean ignoreCase() default true;
+    /**
+     * Ignore case by comparing values as string.
+     */
+    boolean ignoreCase() default true;
 
-	/** Min occurence. */
-	int min() default 1;
+    /**
+     * Min occurence.
+     */
+    int min() default 1;
 
-	/** Max occurence. (0 for no max limit) */
-	int max() default 1;
+    /**
+     * Max occurence. (0 for no max limit)
+     */
+    int max() default 1;
 }

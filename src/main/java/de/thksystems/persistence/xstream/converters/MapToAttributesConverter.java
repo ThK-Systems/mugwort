@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://oss.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.persistence.xstream.converters;
@@ -31,13 +31,13 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
  * <li>spouse- > marge</li>
  * </ul>
  * will be converted to the following XML:
- * 
+ * <p>
  * <pre>
  * {@code
  * <myMap lastname="simpson" firstname="homer" spouse="marge"/\>
  * }
  * </pre>
- * 
+ * <p>
  * <b>Usage</b>
  * <p>
  * Use the converter by adding a {@link XStreamConverter} annotation, like:
@@ -56,67 +56,67 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
  */
 public class MapToAttributesConverter implements Converter {
 
-	protected static final Class<?> TARGET_CLASS = Map.class;
-	private Class<?> valueClass = String.class;
-	private Constructor<?> valueClassConstructor;
+    protected static final Class<?> TARGET_CLASS = Map.class;
+    private Class<?> valueClass = String.class;
+    private Constructor<?> valueClassConstructor;
 
-	public MapToAttributesConverter() {
-		this(String.class);
-	}
+    public MapToAttributesConverter() {
+        this(String.class);
+    }
 
-	public MapToAttributesConverter(Class<?> valueClass) {
-		if (!TARGET_CLASS.isAssignableFrom(valueClass)) {
-			this.valueClass = valueClass;
-			checkValueClass();
-		}
-	}
+    public MapToAttributesConverter(Class<?> valueClass) {
+        if (!TARGET_CLASS.isAssignableFrom(valueClass)) {
+            this.valueClass = valueClass;
+            checkValueClass();
+        }
+    }
 
-	private void checkValueClass() {
-		if (!String.class.isAssignableFrom(valueClass)) {
-			Class<?>[] parameterTypes = new Class<?>[] { String.class };
-			try {
-				valueClassConstructor = valueClass.getConstructor(parameterTypes);
-			} catch (NoSuchMethodException e) {
-				throw new IllegalArgumentException("Value class cannot be converted to string: " + valueClass);
-			} catch (SecurityException e) {
-				throw new IllegalArgumentException("Cannot check value class: " + e.getMessage(), e);
-			}
-		}
-	}
+    private void checkValueClass() {
+        if (!String.class.isAssignableFrom(valueClass)) {
+            Class<?>[] parameterTypes = new Class<?>[]{String.class};
+            try {
+                valueClassConstructor = valueClass.getConstructor(parameterTypes);
+            } catch (NoSuchMethodException e) {
+                throw new IllegalArgumentException("Value class cannot be converted to string: " + valueClass);
+            } catch (SecurityException e) {
+                throw new IllegalArgumentException("Cannot check value class: " + e.getMessage(), e);
+            }
+        }
+    }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public boolean canConvert(Class type) {
-		return TARGET_CLASS.isAssignableFrom(type);
-	}
+    @SuppressWarnings("rawtypes")
+    @Override
+    public boolean canConvert(Class type) {
+        return TARGET_CLASS.isAssignableFrom(type);
+    }
 
-	@Override
-	@SuppressWarnings({ "unchecked" })
-	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-		Map<String, Object> map = (Map<String, Object>) source;
-		for (Map.Entry<String, Object> entry : map.entrySet()) {
-			writer.addAttribute(entry.getKey(), entry.getValue().toString());
-		}
-	}
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
+        Map<String, Object> map = (Map<String, Object>) source;
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            writer.addAttribute(entry.getKey(), entry.getValue().toString());
+        }
+    }
 
-	@Override
-	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		Map<String, Object> map = new HashMap<>();
-		for (int i = 0; i < reader.getAttributeCount(); i++) {
-			String key = reader.getAttributeName(i);
-			String valueString = reader.getAttribute(key);
-			Object valueObject;
-			if (valueClassConstructor != null) {
-				try {
-					valueObject = valueClassConstructor.newInstance(valueString);
-				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					throw new XStreamException(String.format("Cannot convert string value '%s' to class '%s': %s", valueString, valueClass, e.getMessage()), e);
-				}
-			} else {
-				valueObject = valueString;
-			}
-			map.put(key, valueObject);
-		}
-		return map;
-	}
+    @Override
+    public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+        Map<String, Object> map = new HashMap<>();
+        for (int i = 0; i < reader.getAttributeCount(); i++) {
+            String key = reader.getAttributeName(i);
+            String valueString = reader.getAttribute(key);
+            Object valueObject;
+            if (valueClassConstructor != null) {
+                try {
+                    valueObject = valueClassConstructor.newInstance(valueString);
+                } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    throw new XStreamException(String.format("Cannot convert string value '%s' to class '%s': %s", valueString, valueClass, e.getMessage()), e);
+                }
+            } else {
+                valueObject = valueString;
+            }
+            map.put(key, valueObject);
+        }
+        return map;
+    }
 }

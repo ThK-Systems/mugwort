@@ -13,7 +13,7 @@ public class MapTestEntity {
 	@XStreamConverter(MapToAttributesConverter.class)
 	public Map<String, String> myMap = new HashMap<>();
 
-	@XStreamConverter(value = MapToAttributesConverter.class, useImplicitType = false, types = { Integer.class })
+	@XStreamConverter(value = MapToAttributesConverter.class, useImplicitType = false, types = {Integer.class})
 	public Map<String, Integer> intMap = new HashMap<>();
 
 	@XStreamAsAttribute

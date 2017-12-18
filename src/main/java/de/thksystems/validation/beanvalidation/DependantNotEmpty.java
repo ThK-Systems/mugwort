@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://www.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 package de.thksystems.validation.beanvalidation;
@@ -20,21 +20,27 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = DependantNotEmptyValidator.class)
-@Target({ TYPE })
+@Target({TYPE})
 @Retention(RUNTIME)
 public @interface DependantNotEmpty {
-	String message() default "At least one field must have a non-empty value.";
+    String message() default "At least one field must have a non-empty value.";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	/** Name of field, must be not empty. */
-	String fieldname();
+    /**
+     * Name of field, must be not empty.
+     */
+    String fieldname();
 
-	/** Name of field to check for dependantValue. */
-	String dependantField();
+    /**
+     * Name of field to check for dependantValue.
+     */
+    String dependantField();
 
-	/** If dependantField has dependantValue, the value of the fieldname must not be empty. */
-	String dependantValue();
+    /**
+     * If dependantField has dependantValue, the value of the fieldname must not be empty.
+     */
+    String dependantValue();
 }

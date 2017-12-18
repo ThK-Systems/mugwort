@@ -1,6 +1,6 @@
 /*
  * tksCommons / mugwort
- * 
+ *
  * Author : Thomas Kuhlmann (ThK-Systems, http://www.thk-systems.de) License : LGPL (https://www.gnu.org/licenses/lgpl.html)
  */
 
@@ -11,6 +11,6 @@ package de.thksystems.exception;
  */
 public interface Retryable {
 
-	boolean isRetryable();
+    boolean isRetryable();
 
 }

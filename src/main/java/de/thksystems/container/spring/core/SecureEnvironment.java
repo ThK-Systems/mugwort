@@ -19,7 +19,7 @@ import org.springframework.core.env.StandardEnvironment;
  * <p>
  * To encrypt a password using the command line, you can use the {@link JasyptTool}. <br>
  * To encrypt a password programmatically, you can use:
- * 
+ * <p>
  * <pre>
  * BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
  * textEncryptor.setPassword(password);
@@ -28,86 +28,84 @@ import org.springframework.core.env.StandardEnvironment;
  */
 public class SecureEnvironment extends StandardEnvironment {
 
-	@Autowired
-	private ApplicationContext appContext;
+    private final BasicTextEncryptor textEncryptor;
+    @Autowired
+    private ApplicationContext appContext;
 
-	private final BasicTextEncryptor textEncryptor;
+    public SecureEnvironment(String masterPassword) {
+        this(masterPassword.toCharArray());
+    }
 
-	public SecureEnvironment(String masterPassword) {
-		this(masterPassword.toCharArray());
-	}
+    public SecureEnvironment(char[] masterPassword) {
+        textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPasswordCharArray(masterPassword);
+    }
 
-	public SecureEnvironment(char[] masterPassword) {
-		textEncryptor = new BasicTextEncryptor();
-		textEncryptor.setPasswordCharArray(masterPassword);
-	}
+    public SecureEnvironment(int[] masterPassword) {
+        this(int2charArray(masterPassword));
+    }
 
-	public SecureEnvironment(int[] masterPassword) {
-		this(int2charArray(masterPassword));
-	}
+    private static char[] int2charArray(int[] ints) {
+        char[] chars = new char[ints.length];
+        for (int i = 0; i < ints.length; i++) {
+            chars[i] = (char) ints[i];
+        }
+        return chars;
+    }
 
-	/**
-	 * Merge with {@link PropertySources} from {@link ApplicationContext}'s {@link Environment} for adding {@link PropertySources} defined by
-	 * {@link PropertySources} (and may be others)
-	 * <p>
-	 * <i>This is just a work-a-round, because you currently cannot tell the {@link ApplicationContext} which implementation of {@link Environment} to use.
-	 */
-	@PostConstruct
-	protected void mergePropertySources() {
-		MutablePropertySources myPropertySources = super.getPropertySources();
-		if (appContext != null) {
-			Environment appCtxEnv = appContext.getEnvironment();
-			if (appCtxEnv != null && appCtxEnv instanceof ConfigurableEnvironment) {
-				for (PropertySource<?> appCtxPropertySource : ((ConfigurableEnvironment) appCtxEnv).getPropertySources()) {
-					if (!myPropertySources.contains(appCtxPropertySource.getName())) {
-						myPropertySources.addLast(appCtxPropertySource);
-					}
-				}
-			}
-		}
-	}
+    /**
+     * Merge with {@link PropertySources} from {@link ApplicationContext}'s {@link Environment} for adding {@link PropertySources} defined by
+     * {@link PropertySources} (and may be others)
+     * <p>
+     * <i>This is just a work-a-round, because you currently cannot tell the {@link ApplicationContext} which implementation of {@link Environment} to use.
+     */
+    @PostConstruct
+    protected void mergePropertySources() {
+        MutablePropertySources myPropertySources = super.getPropertySources();
+        if (appContext != null) {
+            Environment appCtxEnv = appContext.getEnvironment();
+            if (appCtxEnv != null && appCtxEnv instanceof ConfigurableEnvironment) {
+                for (PropertySource<?> appCtxPropertySource : ((ConfigurableEnvironment) appCtxEnv).getPropertySources()) {
+                    if (!myPropertySources.contains(appCtxPropertySource.getName())) {
+                        myPropertySources.addLast(appCtxPropertySource);
+                    }
+                }
+            }
+        }
+    }
 
-	private static char[] int2charArray(int[] ints) {
-		char[] chars = new char[ints.length];
-		for (int i = 0; i < ints.length; i++) {
-			chars[i] = (char) ints[i];
-		}
-		return chars;
-	}
+    /**
+     * Returns the decrypted property value associated with the given key, or <code>null</code>, if the key cannot be resolved.
+     * <p>
+     * If the property value with the associated key is not encrypted, some unexpected data will be returned.
+     */
+    public String getAndDecryptProperty(String key) {
+        return getAndDecryptProperty(key, null);
+    }
 
-	/**
-	 * Returns the decrypted property value associated with the given key, or <code>null</code>, if the key cannot be resolved.
-	 * <p>
-	 * If the property value with the associated key is not encrypted, some unexpected data will be returned.
-	 */
-	public String getAndDecryptProperty(String key) {
-		return getAndDecryptProperty(key, null);
-	}
+    /**
+     * Returns the decrypted property value associated with the given key, or the default value, if the key cannot be resolved.
+     * <p>
+     * If the property value with the associated key is not encrypted, some unexpected data will be returned.
+     */
+    public String getAndDecryptProperty(String key, String defaultValue) {
+        String prop = getProperty(key);
+        if (prop == null) {
+            return defaultValue;
+        }
+        return textEncryptor.decrypt(prop);
+    }
 
-	/**
-	 * Returns the decrypted property value associated with the given key, or the default value, if the key cannot be resolved.
-	 * <p>
-	 * If the property value with the associated key is not encrypted, some unexpected data will be returned.
-	 */
-	public String getAndDecryptProperty(String key, String defaultValue) {
-		String prop = getProperty(key);
-		if (prop == null) {
-			return defaultValue;
-		}
-		return textEncryptor.decrypt(prop);
-	}
-
-	/**
-	 * Returns the decrypted property value associated with the given key (never {@code null}).
-	 * <p>
-	 * If the property value with the associated key is not encrypted, some unexpected data will be returned.
-	 * 
-	 * @throws IllegalStateException
-	 *             If the key cannot be resolved
-	 */
-	public String getAndDecryptRequiredProperty(String key) throws IllegalStateException {
-		String prop = super.getRequiredProperty(key);
-		return textEncryptor.decrypt(prop);
-	}
+    /**
+     * Returns the decrypted property value associated with the given key (never {@code null}).
+     * <p>
+     * If the property value with the associated key is not encrypted, some unexpected data will be returned.
+     *
+     * @throws IllegalStateException If the key cannot be resolved
+     */
+    public String getAndDecryptRequiredProperty(String key) throws IllegalStateException {
+        String prop = super.getRequiredProperty(key);
+        return textEncryptor.decrypt(prop);
+    }
 
 }
