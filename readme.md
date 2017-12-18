@@ -21,7 +21,7 @@ provides some utilities for enterprise software development using spring, hibern
 
 *   **MapToAttributesConverter** \- Converts a map to a list of xml-attributes. The key of the Map becomes the name of the xml-attribute, and the value of the Map becomes the value of the xml-attribute.
 
-###... for validating beans
+### ... for validating beans
 
 *   **Occurence** \- The annotated list must not have more than one elements, where the specified field (getter) has the specified value
 *   **OneNotEmpty** \- At least one of the given fields must be non-empty (for strings, collections and arrays) or non-null (for anything else).
