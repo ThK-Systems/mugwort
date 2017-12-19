@@ -18,7 +18,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
 /**
- * Checks the immutablity of entities.
  * <p>
  * <b>The interceptor must be registered!!</b>
  *
@@ -31,7 +30,7 @@ public class ImmutableCheckInterceptor extends EmptyInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(ImmutableCheckInterceptor.class);
 
     /**
-     * Checks the immutablity of entities.
+     * Checks the immutability of entities.
      *
      * @see org.hibernate.EmptyInterceptor#onFlushDirty(java.lang.Object, java.io.Serializable, java.lang.Object[], java.lang.Object[], java.lang.String[],
      * org.hibernate.type.Type[])
@@ -39,7 +38,7 @@ public class ImmutableCheckInterceptor extends EmptyInterceptor {
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
         boolean modified = false;
-        // Check for Immutable annoation
+        // Check for Immutable annotation
         if (AnnotationUtils.findAnnotation(entity.getClass(), Immutable.class) != null) {
             // For every property
             for (int i = 0; i < propertyNames.length; i++) {
@@ -93,7 +92,7 @@ public class ImmutableCheckInterceptor extends EmptyInterceptor {
     }
 
     /**
-     * Returns the {@link Mutable} anntotation for the {@link Field}, or <code>null</code>, if not found.
+     * Returns the {@link Mutable} annotation for the {@link Field}, or <code>null</code>, if not found.
      */
     private Mutable findMutableAnnotation(Field field) {
         for (Annotation annotation : field.getDeclaredAnnotations()) {

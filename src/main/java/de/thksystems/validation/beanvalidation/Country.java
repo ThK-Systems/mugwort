@@ -32,4 +32,9 @@ public @interface Country {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    /**
+     * Comma-separated list of additional country codes, that should be assumed as valid.
+     */
+    String additionalValidCountryCodes() default "";
 }

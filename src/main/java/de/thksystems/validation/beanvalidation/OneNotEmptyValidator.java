@@ -27,8 +27,6 @@ public class OneNotEmptyValidator extends AbstractNotEmptyValidator implements C
                 Object fieldValue = ReflectionUtils.getFieldValue(container, container.getClass().getDeclaredField(fieldname));
                 if (isNotEmpty(fieldValue)) {
                     return true;
-                } else {
-                    continue;
                 }
             }
             return false;

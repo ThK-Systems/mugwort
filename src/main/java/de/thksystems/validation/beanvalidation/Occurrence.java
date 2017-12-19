@@ -20,11 +20,11 @@ import javax.validation.Payload;
  * The annotated list must not have more than one elements, where the specified field (getter) has the specified value.
  */
 @Documented
-@Constraint(validatedBy = OccurenceValidator.class)
+@Constraint(validatedBy = OccurrenceValidator.class)
 @Target({METHOD, FIELD})
 @Retention(RUNTIME)
-public @interface Occurence {
-    String message() default "Only a single occurence is allowed.";
+public @interface Occurrence {
+    String message() default "Only a single occurrence is allowed.";
 
     Class<?>[] groups() default {};
 
@@ -46,12 +46,12 @@ public @interface Occurence {
     boolean ignoreCase() default true;
 
     /**
-     * Min occurence.
+     * Min occurrence.
      */
     int min() default 1;
 
     /**
-     * Max occurence. (0 for no max limit)
+     * Max occurrence. (0 for no max limit)
      */
     int max() default 1;
 }

@@ -30,7 +30,7 @@ public abstract class BaseService extends BaseComponent {
      * <b>Do not mix annotation based transaction handling and programmatically one!</b><br>
      *
      * @param readonly    For readonly transactions.
-     * @param propagation For special propagations (like REQUIRES_NEW)
+     * @param propagation For special propagation (like REQUIRES_NEW)
      */
     protected TransactionStatus startTransaction(boolean readonly, Propagation propagation) {
         LOG.trace("Starting new transaction");
@@ -58,7 +58,7 @@ public abstract class BaseService extends BaseComponent {
      * <b>Use it with caution!</b><br>
      * <b>Do not mix annotation based transaction handling and programmatically one!</b><br>
      *
-     * @param propagation For special propagations (like REQUIRES_NEW)
+     * @param propagation For special propagation (like REQUIRES_NEW)
      */
     protected TransactionStatus startTransaction(Propagation propagation) {
         return startTransaction(false, propagation);
@@ -75,7 +75,7 @@ public abstract class BaseService extends BaseComponent {
     }
 
     /**
-     * Start transacation manually, if required.
+     * Start transaction manually, if required.
      *
      * @see #startTransaction()
      */
@@ -99,9 +99,9 @@ public abstract class BaseService extends BaseComponent {
                 LOG.trace("Transaction is set rollback only.");
                 rollbackTransaction(transactionStatus);
             } else {
-                LOG.trace("Commiting transaction");
+                LOG.trace("Committing transaction");
                 transactionManager.commit(transactionStatus);
-                LOG.trace("Transaction commited");
+                LOG.trace("Transaction committed");
             }
         }
     }
@@ -115,7 +115,7 @@ public abstract class BaseService extends BaseComponent {
         if (transactionStatus != null && !transactionStatus.isCompleted()) {
             LOG.trace("Rolling back transaction.");
             transactionManager.rollback(transactionStatus);
-            LOG.trace("Transaction rollbacked.");
+            LOG.trace("Transaction rollback.");
         }
     }
 

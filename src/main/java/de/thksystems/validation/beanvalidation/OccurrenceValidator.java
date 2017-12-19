@@ -13,7 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.ReflectionUtils;
 
-public class OccurenceValidator implements ConstraintValidator<Occurence, Collection<? extends Object>> {
+public class OccurrenceValidator implements ConstraintValidator<Occurrence, Collection<?>> {
 
     private String getterName;
 
@@ -26,7 +26,7 @@ public class OccurenceValidator implements ConstraintValidator<Occurence, Collec
     private int max;
 
     @Override
-    public void initialize(Occurence constraintAnnotation) {
+    public void initialize(Occurrence constraintAnnotation) {
         getterName = constraintAnnotation.getterName();
         getterValue = constraintAnnotation.value();
         ignoreCase = constraintAnnotation.ignoreCase();
@@ -36,11 +36,11 @@ public class OccurenceValidator implements ConstraintValidator<Occurence, Collec
     }
 
     @Override
-    public boolean isValid(Collection<? extends Object> list, ConstraintValidatorContext context) {
+    public boolean isValid(Collection<?> list, ConstraintValidatorContext context) {
         if (list.isEmpty()) {
             return true;
         }
-        Class<? extends Object> elemClass = list.iterator().next().getClass();
+        Class<?> elemClass = list.iterator().next().getClass();
         Method elemMethod = ReflectionUtils.findMethod(elemClass, getterName);
         if (elemMethod == null) {
             return false;
