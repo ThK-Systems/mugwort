@@ -6,7 +6,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 
 public class JasyptTool {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         @SuppressWarnings("resource")
         Scanner in = new Scanner(System.in);
         System.out.println("Text: ");
