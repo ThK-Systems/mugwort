@@ -44,7 +44,7 @@ Browse the [Javadoc of the latest version](https://www.thk-systems.de/content/os
 <dependency>
   <groupId>net.thk-systems.commons</groupId>
   <artifactId>mugwort</artifactId>
-  <version>3.7.4</version>
+  <version>3.8.0</version>
 </dependency>
 ```
 
