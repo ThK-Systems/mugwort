@@ -55,7 +55,7 @@ _Note: mugwort comes with no maven dependencies to spring, hibernate, servlet-ap
 
 ## Changelog
 
-**3.8.0 (unreleased)**
+**3.8.0**
 *   Updated dependencies
 
 **3.7.0 / 3.7.1 / 3.7.2 / 3.7.3 / 3.7.4**
