@@ -48,7 +48,7 @@ Browse the [Javadoc of the latest version](https://www.thk-systems.de/content/os
 </dependency>
 ```
 
-You can browse [maven-central](http://search.maven.org/#artifactdetails|net.thk-systems.commons|mugwort|3.7.4|jar) to download the jar or other versions. 
+You can browse [maven-central](http://search.maven.org/#artifactdetails|net.thk-systems.commons|mugwort|3.8.0|jar) to download the jar or other versions. 
 
 _Note: mugwort comes with no maven dependencies to spring, hibernate, servlet-api, ... ._ 
 
