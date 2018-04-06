@@ -57,13 +57,4 @@ public abstract class IdentifiedEntity extends ReflectiveBasicBean {
         }
         return super.equals(obj);
     }
-
-    @Override
-    public int hashCode() {
-        if (getId() > 0) {
-            return 89 * 47 + (int) getId();
-        }
-        return super.hashCode();
-    }
-
 }
