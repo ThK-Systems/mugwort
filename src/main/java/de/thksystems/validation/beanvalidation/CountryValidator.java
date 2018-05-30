@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.thksystems.util.text.LocaleUtils;
 
 public class CountryValidator extends AbstractValueValidator<Country> {
@@ -18,7 +20,7 @@ public class CountryValidator extends AbstractValueValidator<Country> {
     @Override
     public void initialize(Country constraintAnnotation) {
         super.initialize(constraintAnnotation);
-        additionalValidCountryCodes = Arrays.asList(constraintAnnotation.additionalValidCountryCodes().split(","));
+        additionalValidCountryCodes = Arrays.asList(StringUtils.split(constraintAnnotation.additionalValidCountryCodes(), ","));
     }
 
     @Override
