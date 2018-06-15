@@ -5,13 +5,13 @@
     <groupId>net.thk-systems.commons</groupId>
     <artifactId>mugwort</artifactId>
     <packaging>jar</packaging>
-    <version>3.8.1</version>
+    <version>3.8.2</version>
     <name>mugwort</name>
 
     <parent>
         <groupId>net.thk-systems</groupId>
         <artifactId>tksparent</artifactId>
-        <version>1.18.0</version>
+        <version>1.18.1</version>
     </parent>
 
     <url>https://github.com/ThK-Systems/mugwort</url>
