@@ -17,7 +17,8 @@ public class JasyptTool {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(password);
 
-        System.out.println(textEncryptor.encrypt(text));
+        // System.out.println(textEncryptor.encrypt(text));
+        System.out.println(textEncryptor.decrypt(text));
 
     }
 }
