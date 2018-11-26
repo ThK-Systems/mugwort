@@ -44,16 +44,21 @@ Browse the [Javadoc of the latest version](https://www.thk-systems.de/content/os
 <dependency>
   <groupId>net.thk-systems.commons</groupId>
   <artifactId>mugwort</artifactId>
-  <version>3.8.2</version>
+  <version>3.9.0</version>
 </dependency>
 ```
 
-You can browse [maven-central](http://search.maven.org/#artifactdetails|net.thk-systems.commons|mugwort|3.8.2|jar) to download the jar or other versions. 
+You can browse [maven-central](http://search.maven.org/#artifactdetails|net.thk-systems.commons|mugwort|3.9.0|jar) to download the jar or other versions. 
 
 _Note: mugwort comes with no maven dependencies to spring, hibernate, servlet-api, ... ._ 
 
 
 ## Changelog
+
+**3.9.0**
+
+* Updated parent pom
+* Use apache common FieldUtils instead of removed cumin ReflectionUtils methods
 
 **3.8.2**
 

@@ -8,8 +8,9 @@ package de.thksystems.validation.beanvalidation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 import de.thksystems.exception.ServiceRuntimeException;
-import de.thksystems.util.reflection.ReflectionUtils;
 
 public class DependantNotEmptyValidator extends AbstractNotEmptyValidator implements ConstraintValidator<DependantNotEmpty, Object> {
 
@@ -29,14 +30,14 @@ public class DependantNotEmptyValidator extends AbstractNotEmptyValidator implem
     @Override
     public boolean isValid(Object container, ConstraintValidatorContext context) {
         try {
-            Object currentConditionValue = ReflectionUtils.getFieldValue(container, container.getClass().getDeclaredField(dependantField));
+            Object currentConditionValue = FieldUtils.readDeclaredField(container, dependantField);
             if ((currentConditionValue == null && depandantValue == null) || (currentConditionValue != null && currentConditionValue.equals(depandantValue))
                     || (currentConditionValue != null && currentConditionValue.toString().equals(depandantValue))) {
-                Object fieldValue = ReflectionUtils.getFieldValue(container, container.getClass().getDeclaredField(fieldname));
+                Object fieldValue = FieldUtils.readDeclaredField(container, fieldname);
                 return isNotEmpty(fieldValue);
             }
             return true;
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
             throw new ServiceRuntimeException(e.getMessage(), e);
         }
     }
