@@ -1,3 +1,5 @@
+## **<font color='red'>The development of mugwort will not be continued. There will be no new version and no support anymore.</font>**
+
 ### mugwort
 
 provides some utilities for enterprise software development using spring, hibernate, servlets, xstream, java-bean-validation, ... 
